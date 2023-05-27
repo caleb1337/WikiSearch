@@ -1,4 +1,4 @@
-# WikiSearch
+# WikiSearch / ВикиПоиск
 Одностраничное приложение, реализует AJAX подход
 
 Обмен данными с серверами Wikipedia происходит с помощью двух API: OpenSearch и Parse.

@@ -1,0 +1,20 @@
+{
+  "name": "wikisearch",
+  "version": "1.0.0",
+  "description": "App for search in RU Wiki",
+  "main": "index.html",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "author": "Evgen",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.2.3",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "nodemailer": "^6.9.1",
+    "nodemon": "^2.0.22"
+  }
+}

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1" />
+		<link
+			rel="stylesheet"
+			href="bootstrap.min.css" />
+		<link
+			rel="script"
+			href="bootstrap.min.js" />
+		<link rel="stylesheet" href="styles.css">
+		<title>WikiSearch</title>
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-lg bg-light">
+			<div class="container-fluid">
+			  <a class="navbar-brand" href="/">ВикиПоиск</a>
+			  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			  </button>
+			  <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+				<div class="navbar-nav">
+				  <a class="nav-link" href="https://t.me/caleb_1337">
+					<div class="d-flex flex-inline">
+						<img src="telegram-logo.svg" alt="logo-telegram" class="header-pic"><p class="px-1">Телеграм</p>
+					</div>
+					</a>
+				  <a class="nav-link" href="https://vk.com/musictard">
+					<div class="d-flex flex-inline">
+						<img src="vk-logo.svg" alt="logo-vk" class="header-pic"><p class="px-1">Вконтакте</p>
+					</div>
+				  </a>
+				
+				</div>
+			  </div>
+			</div>
+		  </nav>
+		<div class="container-xl">
+			<% if (user) { %>
+			<div class="alert alert-light d-flex justify-content-between my-3 border border-2 border-secondary border-opacity-50" role="alert">
+				<p>Дорогой <%=user.userName %>, спасибо за обратную связь! Постараюсь ответить тебе на твой Email - <%=user.userEmail %>, как можно скорее!</p>
+				<button type="button" class="btn-close px-5" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+			<% }else{ %>
+
+			<div class="alert alert-light d-flex justify-content-between my-3 border border-2 border-secondary border-opacity-50" role="alert">
+				<p>Дорогой пользователь, имей в виду, что данное приложение не является поисковой системой. Поиск ограничивается 
+				RU-разделом Википедии. Формулируй свой запрос чётко и по возможности без орфографических ошибок. 
+				Также помни, что Википедия - свободно-редактируемая энциклопедия. Сверяй информацию с другими источниками!
+				<br>Связаться со мной вы можете через социальные сети или форму обратной связи. Ссылки на соцсети закреплены в шапке.
+				<br><i style="float:right; padding:5px;">Евгений Чистяков, автор приложения</i></p>
+				<button type="button" class="btn-close px-2" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+			<% } %>
+
+			<div class="sideButtons-wrapper d-flex flex-column align-items-center">
+				<div id="scroll-up" class="py-2"><img src="arrow-up-square.svg" alt="toUp" class="scroll-pic"></div>
+				<!-- Button trigger modal -->
+				<button type="button" class="btn btn-primary btn-sm formCaller-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+					Обратная связь/Сообщить об ошибке
+				</button>
+			</div>
+			
+			<!-- Modal -->
+			<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+				<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+					<h1 class="modal-title fs-5" id="staticBackdropLabel">Написать разработчику</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form method="POST">
+							<div class="mb-3">
+								<label for="name-input" class="form-label">Введите ваше имя</label>
+								<input type="text" class="form-control" id="name-input" name="userName" placeholder="Имя" required>
+							  </div>
+							<div class="mb-3">
+								<label for="email-input" class="form-label">Введите ваш адрес электронной почты </label>
+								<input type="email" class="form-control" id="email-input" name="userEmail" placeholder="Почта" required>
+							</div>
+							<div class="mb-3">
+							<label for="select-menu" class="form-label">Выберите тип сообщения</label>
+							<select class="form-select" id="select-menu" name="messageType" required>
+								<option value="BugReport"selected >Сообщение об ошибке</option>
+								<option disabled style="font-size:0.8rem">Просьба подробно указывать описание ошибки</option>
+								<option value="Feedback">Отправить отзыв о приложении</option>
+							  </select>
+							</div>
+							<div class="mb-3">
+								<label for="textArea-input" class="form-label"  required>Ваш текст</label>
+								<textarea class="form-control" id="textArea-input" name="userText" rows="3"></textarea>
+							</div>
+							<input type="submit" class="btn btn-primary" value="Отправить">
+						</form>
+					</div>
+					<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+					</div>
+				</div>
+				</div>
+			</div>
+			<!-- End of modal -->
+			<div class="row align-content-around flex-column ">
+					<div class="col-12 text-center">
+						<h1 class="h1">
+							Привет, это приложение для поиска по
+							википедии
+						</h1>
+		
+						<input
+							type="text"
+							name="text"
+							id="text-input"
+							class="col-7"
+							placeholder="Введите запрос" />
+						<button class="btn btn-warning col-3" id="search-btn">
+							Поиск
+						</button>
+						
+					</div>
+					<div class="d-flex flex-inline flex-wrap align-items-center mt-2 px-1" label="flex-wrapper">
+						<div class="index-counter"></div>
+						<button class='btn btn-warning ms-5 hide' id='show-btn'>Показать</button>
+					</div>
+					
+					<div class="container-xl py-3">
+					<ul class="output text-deocration-none hide"></ul>
+					</div>
+				<div class="container-xl matched-container">
+					<div class="container-placeholder"></div>
+					
+				</div>	
+			</div>
+		</div>
+
+		<script>
+			//Глобалный контекст, позже запихнуть все это в функцию, чтобы не засорять global object
+			//Уйти от модальных окон для отображения других совпадений
+			//Совпадения, рендерить в основное окно по клику на ссылку совпадения
+			//Сделать обработку ошибок, если не удается отрендерить страницу (пробуй запрос mercedes для теста) (ошибка в функции pageRender)
+			
+
+			
+			const input = document.querySelector("#text-input"),
+				btnSearch = document.querySelector("#search-btn"),
+				btnShow = document.querySelector("#show-btn"),
+				output = document.querySelector(".output"),
+				modalOutput = document.querySelector(".modal-body"),
+				matchedContainer = document.querySelector(".matched-container"),
+				scrollBtn = document.querySelector('#scroll-up'),
+				placeholderContainer = document.querySelector('.container-placeholder')
+			let query;
+
+			input.addEventListener("change", getQuery);
+			input.addEventListener("keydown",sendOnKeyDown);
+			input.addEventListener("submit", ()=> searchInWiki(query));
+			btnShow.addEventListener("click", displayResults)
+			btnSearch.addEventListener("click", () => searchInWiki(query));
+			output.addEventListener("click", getPageName);
+			output.addEventListener("click",closeList);
+			scrollBtn.addEventListener("click",scrollToTop);
+
+			
+
+			function sendOnKeyDown(e){ //метод чтобы отправлять запрос по клавише энтер
+				if(e.key == 'Enter'){ 
+					input.blur(); // потеря фокуса нужна, т.к событие "change" пишет данные в переменную только при потере фокуса
+					searchInWiki(query);
+					console.log(`Im event! ${e.key}`);
+				}
+			}
+
+			function scrollToTop(){
+				return window.scroll(0,0);
+			}
+
+			function closeList(e){
+				if(e.target.matches('li')){ 
+					output.classList.remove('visible');
+					output.classList.add('hide');
+				};
+			}
+			function getQuery(e) {
+				e.preventDefault();
+				query = e.target.value;
+				console.log(query);
+				return query;
+			}
+			function displayResults(){
+				output.classList.contains('hide') ? ( //тернарник
+					output.classList.remove('hide'), 
+					output.classList.add('visible'))
+					:
+					(output.classList.remove('visible'), 
+					output.classList.add('hide'))
+			}
+			function getPageName(e){
+				let regexp = new RegExp('(?<=wiki/).*','gmi')
+				// let regexp = /(?<=/wiki/).*/gmi;
+
+				let pageName = e.target.textContent.match(regexp);
+				// let pageName = e.target.textContent.slice(30);
+	
+				if(e.target.matches('li')){ //условие срабатывания этой функции
+					matchedContainer.innerHTML='';
+					
+					getPageRender(pageName,matchedContainer)
+				
+				}; 
+
+			}
+			async function getPageRender(pageName,renderElem){
+				// placeholderContainer.classList.remove('hide');
+				//matchedContainer.innerHTML ='';
+				matchedContainer.insertAdjacentHTML('afterbegin',`
+				<div class="container-placeholder">
+					 <p class="card-text placeholder-glow py-2">
+						<span class="placeholder col-5"></span>
+					  </p>
+					  <p class="card-text placeholder-glow py-2">
+						<span class="placeholder col-4"></span>
+					  </p>
+					  <p class="card-text placeholder-glow py-2">
+						<span class="placeholder col-3" style="height: 440px"></span>
+					  </p>
+					  <p class="card-text placeholder-glow py-2">
+						<span class="placeholder col-4"></span>
+					  </p>
+					  <p class="card-text placeholder-glow py-2">
+						<span class="placeholder col-1 px-2"></span>
+						<span class="placeholder col-3 px-2"></span>
+					  </p>
+					  <p class="card-text placeholder-glow py-2">
+						<span class="placeholder col-2 px-2"></span>
+						<span class="placeholder col-3 px-2"></span>
+					  </p>
+					  <p class="card-text placeholder-glow py-2">
+						<span class="placeholder col-2 px-2"></span>
+						<span class="placeholder col-1 px-2"></span>
+					  </p>
+					  <p class="card-text placeholder-glow py-2">
+						<span class="placeholder col-2 px-2"></span>
+						<span class="placeholder col-3 px-2"></span>
+					  </p>
+					  <p class="card-text placeholder-glow py-2">
+						<span class="placeholder col-2 px-2"></span>
+						<span class="placeholder col-2 px-2"></span>
+					  </p>
+					  <p class="card-text placeholder-glow py-2">
+						<span class="placeholder col-2 px-2"></span>
+						<span class="placeholder col-3 px-2"></span>
+					  </p></div>`)
+				let response = await fetch(`https://ru.wikipedia.org/w/api.php?action=parse&origin=*&format=json&page=${pageName}&formatversion=2`)
+				//в fetch запросе, обязательно ставить параметр origin=* для работы с CORS
+				let data = await response.json();
+				console.log(data);
+				try{
+					matchedContainer.classList.remove('border')
+					matchedContainer.classList.remove('border-dark')
+					matchedContainer.classList.add('border');
+					matchedContainer.classList.add('border-dark');
+					//сюда функцию декоратор с таймаутом
+					setTimeout(render,1000);
+					async function render(){
+					matchedContainer.innerHTML = '';	
+					renderElem.insertAdjacentHTML('afterbegin',`${data.parse.text.replace('/','')}`)
+						if(matchedContainer.querySelector('.redirectMsg')){ //Проверка наличия элемента
+							let link = matchedContainer.querySelector('a').href;
+							console.log('RENDER CONTAINS REDIRECT!!!!')
+							//http://127.0.0.1:3000/wiki/Daewoo_Nexia
+							let str = link.slice(link.indexOf('/wiki')) // /wiki/Daewoo_Nexia
+							let newPage = str.slice(6)
+							response =  await fetch(`https://ru.wikipedia.org/w/api.php?action=parse&origin=*&format=json&page=${newPage}&formatversion=2`)
+							data = await response.json();
+							renderElem.insertAdjacentHTML('afterbegin',`${data.parse.text.replace('/','')}`)
+						}
+					}
+				} 
+				catch(error){
+					renderElem.innerHTML = `
+					<h3>Упс... что-то пошло не так</h3>
+					<p>При обработке вашего запроса произошла ошибка. Проверьте правильность написания запроса. 
+					Также, посмотрите пожалуйста список совпадений, возможно там вы найдете искомую информацию</p>
+					`;
+					console.log('Error>>>', error);
+
+				}
+			}      
+			async function searchInWiki(query) {
+				const myHeaders = new Headers();
+				myHeaders.append(
+					"Cookie",
+					"GeoIP=RU:ROS:Rostov-on-Don:47.24:39.72:v4; WMF-Last-Access-Global=24-Apr-2023; WMF-Last-Access=24-Apr-2023"
+				);
+
+				const requestOptions = {
+					method: "GET",
+					headers: myHeaders,
+					redirect: "follow",
+				};
+				let count = 0;
+				const counter = document.querySelector(".index-counter");
+
+                output.innerHTML = '';
+                counter.innerHTML = '';
+				if (query) {
+					let response = await fetch(
+						`https://ru.wikipedia.org/w/api.php?action=opensearch&format=json&origin=*&search=${query}&formatversion=2`,
+						requestOptions
+					);
+					let data = await response.json();
+					data[3].reverse().map((item) => { //data[3], т.к в нем содержится список ссылок, reverse(), т.к самый точный результат отобр. в конце
+						count++; //счетчик совпадений
+						output.insertAdjacentHTML(
+							"afterbegin",
+							`<hr><li class="link-element text-decoration-underline text-primary">${decodeURI(item)}</li>`
+							
+						);
+						
+					});
+					counter.insertAdjacentHTML(
+						"afterbegin",
+						`<p>Количество совпадений:<b>${count}</b></p>`
+					);
+					btnShow.classList.remove('hide')
+					btnShow.classList.add('visible'); // отображать кнопку совпадений
+					//Рендер самого точного совпадения в отдельный блок
+					let regexp = new RegExp('(?<=wiki/).*','gmi')
+					// let regexp = /(?<=/wiki/).*/gmi;
+					// let firstMatch = output.children[1].textContent.slice(30); //здесь поменять индекс, если уйти от использования <hr> , т.к сейчас [0] это hr
+					let firstMatch = output.children[1].textContent.match(regexp);
+					 // чистим перед след.запросом
+					getPageRender(firstMatch,matchedContainer);
+				} else
+					return alert(
+						"Неверно введен запрос! Попробуйте еще раз."
+					);
+			}
+		</script>
+		<script src="bootstrap.min.js"></script>
+	</body>
+</html>
